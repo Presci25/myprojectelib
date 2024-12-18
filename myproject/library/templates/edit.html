@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Users</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <h1><center>Edit Users</center></h1>
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile No</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Status</th>
+                    <th>UserType</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                  <td>
+                        <input type="text" name="name_{{ user.id }}" value="{{ user.name }}" required>
+                    </td>
+                    <td>
+                        <input type="email" name="uemail_{{ user.id }}" value="{{ user.uemail }}" required>
+                    </td>
+                    <td>
+                        <input type="text" name="umobile_{{ user.id }}" value="{{ user.umobile }}" required>
+                    </td>
+                    <td>
+                        <input type="text" name="uname_{{ user.id }}" value="{{ user.uname }}" required>
+                    </td>
+                    <td>
+                        <input type="text" name="upass_{{ user.id }}" value="{{ user.upass }}" required>
+                    </td>
+                    <td>
+                        <select name="status_{{ user.id }}">
+                            <option value="active" {% if user.status == 'active' %}selected{% endif %}>Active</option>
+                            <option value="inactive" {% if user.status == 'inactive' %}selected{% endif %}>Inactive</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="user_type_{{ user.id }}">
+                            <option value="0" {% if user.user_type == '0' %}selected{% endif %}>Admin(0)</option>
+                            <option value="1" {% if user.user_type == '1' %}selected{% endif %}>Staff(1)</option>
+                            <option value="2" {% if user.user_type == '2' %}selected{% endif %}>Student(2)</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button type="submit" name="edit_{{ user.id }}" style="background-color:red;border:none;color:white;cursor:pointer;padding:5px 10px; border-radius:3px;">Edit</button>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9">No users available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+    {% if messages %}
+    <script type="text/javascript">
+        {% for message in messages %}
+            alert("{{ message }}");
+        {% endfor %}
+    </script>
+{% endif %}
+</body>
+</html>

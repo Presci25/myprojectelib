@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <style>
+        body
+        {
+        font-family: Arial, sans-serif;
+        background: color #f4f4f9;
+        margin:0;
+        padding:0;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+     }
+     .form-container,.result-container
+     {
+        width:50%;
+        margin-top:30px;
+        padding:20px;
+        background-color:#fff;
+        border-radius:8px;
+        box-shadow:0 2px 4px rgba(0,0,0,0.1);
+     }
+     h1{
+        text-align:center
+        color:#333
+     }
+     input[type="text"],input[type="time"]
+     {
+        width:100px;
+        padding:10px;
+        margin-bottom:15px;
+        border:1px solid #ccc;
+        border-radius:5px;
+        font-size:16px;
+     }
+     button{
+        background-color:#007bff;
+        color:white;
+        padding:10px 20px;
+        font-size:16px;
+        border-radius:5px;
+        cursor:pointer;
+        border:none;
+     }
+     button:hover{
+        background-color:#0056b3;
+     }
+     table
+     {
+       width:100%;
+       border-collapse:collapse;
+       margin-top:10px;
+     }
+     table th,table td
+     {
+        padding:10px;
+        text-align:center;
+        border:1px solid #ddd;
+     }
+     table th{
+        background-color:#f2f2f2;
+     }
+    </style>
+</head>
+<body>
+    <h1>Add Attendance</h1>
+    <div class="form-container">
+        <form method="POST" action="/attendances/" autocomplete="off">
+            {% csrf_token %}
+         <label for="user_id">UserID No:</label>
+         <input type="text" name="user_id" id="user_id" placeholder="Enter UserID" required>
+         <label for="uname">Username:</label>
+         <input type="text" name="uname" id="uname" placeholder="Enter Username" required>
+         <label for="out_time">OutTime:</label>
+         <input type="time" name="out_time" id="out_time" required>
+         <button type="submit">Add Attendance</button>
+        </form>
+    </div>
+    {% if attendance_record %}
+    <div class="result-container">
+        <h2>Attendance Added Successfully</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>UserID NO</th>
+                    <th>Username</th>
+                    <th>Date</th>
+                    <th>In Time</th>
+                    <th>Out Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ attendance_record.user_id }}</td>
+                    <td>{{ attendance_record.uname }}</td>
+                    <td>{{ attendance_record.date }}</td>
+                    <td>{{ attendance_record.in_time }}</td>
+                    <td>{{ attendance_record.out_time }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+</body>
+</html>

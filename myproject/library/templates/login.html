@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <style>
+        /* .center-content
+        {
+          display:flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+        } */
+
+        table
+        {
+            border:1px solid black;
+        }
+        th,td{
+            padding:10px;
+        }
+        .center
+        {
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+        }  
+    </style>
+</head>
+<body>
+    {% block content %}
+    <!-- <div class="center-content"> -->
+        <form action="/login/"  method="POST" autocomplete="off" onsubmit="login()">
+        {%  csrf_token  %}
+            <table class="center"> 
+            <tr>
+            <th colspan="2"><center><h3>Login Form</h3></center><hr></th>
+            </tr>
+          <tr>
+            <td><label>UserName: </label></td>
+              <td><input type="text" name="username" required></td>
+        </tr>
+          <tr>
+            <td><label>Password: </label></td>
+              <td><input type="password" name="password" required></td>
+        </tr>
+   <tr>
+    <td colspan="2">
+        <center>
+      <input type="submit" value="Login" style="background-color: green;color:white; padding:8px 10px;cursor:pointer;size:16px;"/>
+    </center>
+    </td>
+    </tr>
+    </table> 
+     </form>
+     {% if messages %}
+    <script type="text/javascript">
+        {% for message in messages %}
+            alert("{{ message }}");
+        {% endfor %}
+    </script>
+{% endif %}
+<!-- username=request.POST.get("username")
+    password=request.POST.get("password")
+    try:
+        user=users.objects.get(uname=username,upass=password)
+        if(user.uname==username and user.upass==password):
+            if(user.user_type==0 and user.status=='Active'):
+                return redirect("admin.html")
+            elif(user.user_type==1 and user.status=='Active'):
+                return redirect("staff.html")
+            elif(user.user_type==2 and user.status=='Active'):
+                return redirect("student.html")
+        messages.success(request,f"Successfully Logined:{user.uname}.")
+    except:
+        messages.error(request,"Invalid username or password") -->
+        <!-- <div id="responseMessage"></div> -->
+<!-- <script>
+  async  function login()
+  {
+    event.preventDefault();//prevent the default form submission
+    const username=document.getElementById("username").value;
+    const password=document.getElementById("password").value;
+    try
+    {
+      const response=await fetch('/login/',{
+        method='POST',
+        headers:{
+          'Content-Type':'application-json'
+        },
+        body:
+        JSON.stringify({username,password})
+      });
+      const data=await response.json();
+      const messageDiv=document.getElementById('responseMessage');
+      if(data.success)
+      {
+        messageDiv.innerHTML='<p style="color: green">${data.messages}</p>';
+      
+      if(data.user_type ==="0")
+      {
+        window.location.href="/admindas/";
+      }
+      else if(data.user_type ==="1")
+      {
+        window.location.href="/staff/";
+      }
+      else if(data.user_type ==="2")
+      {
+        window.location.href="/student/"''
+      }
+      }
+      else{
+        messageDiv.innerHTML='<p style="color:red";>${data,message}</p>';     
+      }
+    }
+    catch(error)
+    {
+      console.error("Error:",error);
+      alert("An error occurred Please try again")
+    }
+ }
+</script>
+     -->
+     {% endblock %}
+</body>
+</html>

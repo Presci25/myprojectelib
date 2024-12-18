@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add BookSubject</title>
+    <style>
+        .form-container
+        {
+        width:50%;
+        margin-top:30px;
+        padding:20px;
+        background-color:#fff;
+        border-radius:8px;
+        box-shadow:0 2px 4px rgba(0,0,0,0.1);
+     }
+     input[type="text"],select
+     {
+        width:30%;
+        padding:10px;
+        margin-bottom:15px;
+        border:1px solid #ccc;
+        border-radius:5px;
+        font-size:16px;
+     }
+    button{
+        background-color:darkblue;
+        color:white;
+        padding:10px 20px;
+        font-size:16px;
+        border-radius:5px;
+        cursor:pointer;
+        border:none;
+     }
+      </style>
+</head>
+<body>
+    <center>
+        <h2><font color="#4920000">Add BookSubject</font></h2>
+    <div class="form-container">
+<form method="POST" action="/booksub/" autocomplete="off">
+            {% csrf_token %}
+    <label for="subjectname">Subject Name:</label>
+    <input type="text" name="subjectname" id="subjectname" required>
+    <label for="booktype">Select BookType:</label>
+    <select name="booktype" id="booktype" required>
+        <option value="" disabled selected>Select Book Type</option>
+        {% for booktype in booktypes%}
+        <option value="{{ booktype.booktype }}">{{ booktype.booktype }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <button type="submit">Add Subject</button>
+</form>
+</center>
+</div>
+{% if messages %}
+    <script type="text/javascript">
+        {% for message in messages %}
+            alert("{{ message }}");
+        {% endfor %}
+    </script>
+{% endif %}
+</body>
+</html>

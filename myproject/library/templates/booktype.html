@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Type</title>
+    <style>
+        .form-container,.result-container
+        {
+        width:50%;
+        margin-top:30px;
+        padding:20px;
+        background-color:#fff;
+        border-radius:8px;
+        box-shadow:0 2px 4px rgba(0,0,0,0.1);
+     }
+     h1{
+        text-align:center;
+        color:#333;
+     }
+     input[type="text"]
+     {
+        width:30%;
+        padding:10px;
+        margin-bottom:15px;
+        border:1px solid #ccc;
+        border-radius:5px;
+        font-size:16px;
+     }
+     button{
+        background-color:palevioletred;
+        color:white;
+        padding:10px 20px;
+        font-size:16px;
+        border-radius:5px;
+        cursor:pointer;
+        border:none;
+     }
+     button:hover{
+        background-color:pink;
+     }
+    </style>
+</head>
+<body>
+    <center>
+    <h1>Add BookTypeName</h1>
+    <div class="form-container">
+        <form method="POST" action="/booktyp/" autocomplete="off">
+            {% csrf_token %}
+         <label for="booktype">BookTypeName:</label>
+         <input type="text" name="booktype" id="booktype" placeholder="Enter BookTypeName" required>
+         <button type="submit">Add BookType</button>
+        </form>
+    </div>
+        {% if booktype_record %}
+    <div class="result-container">
+        <h2>BookTypeName  Added Successfully</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>BookTypeName</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ booktype_record.booktype }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    </center>
+    </body>
+</html>

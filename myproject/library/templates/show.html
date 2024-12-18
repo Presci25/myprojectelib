@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Users</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <h1><center>Registered Users</center></h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>UserID NO:</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile No</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>IsDeleted</th>
+                <th>Status</th>
+                <th>UserType</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.user_id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.uemail }}</td>
+                <td>{{ user.umobile }}</td>
+                <td>{{ user.uname }}</td>
+                <td>{{ user.upass }}</td>
+                <td>{{ user.is_deleted }}</td>
+                <td>{{ user.status }}</td>
+                <td>{{ user.user_type }}</td>
+                    
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="10">No users available.</td>
+            </tr>
+            
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

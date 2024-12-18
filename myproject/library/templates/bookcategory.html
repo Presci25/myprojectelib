@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add BookCategory</title>
+    <style>
+        div{
+            background-color:rgb(245, 243, 241);
+            width:80%;
+            padding:16px;
+            margin:0;
+            box-shadow:0px 8px 16px rgba(0,0,0,0.2);
+        }
+        .input[type="text"],select
+        {
+            width:20%;
+            padding:10px;
+        }
+        button
+        {
+            background-color:green;
+            color:white;
+            padding:10px 12px;
+            font-size:16px;
+            border:none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <h1><font color="#007bff">Add BookCategory</font></h1>
+    <div>
+        <form method="POST" action="/bookcate/" autocomplete="off">
+            {% csrf_token %}
+            <label for="booktype">Select BookType:</label>
+            <select name="booktype" id="booktype" required>
+            <option value="" disabled selected>Select BookType</option>
+            {% for booktype in booktypes%}
+            <option value="{{ booktype.booktype }}">{{ booktype.booktype }}</option>
+            {% endfor %}
+            </select>
+            <label for="subjectname">Select SubjectName:</label>
+            <select name="subjectname" id="subjectname" required>
+            <option value="" disabled selected>Select SubjectName</option>
+            {% for subject in subjectnames%}
+            <option value="{{ subject.subjectname }}">{{ subject.subjectname }}</option>
+            {% endfor %}
+            </select>
+          <label for="bookcategory">BookCategory:</label> 
+          <input type="text" name="bookcategory" id="bookcategory"  placeholder="Enter BookCategory" required>
+          <br><br>
+          <button type="submit">Add Category</button>
+        </form>
+    </div>
+</center>
+{% if messages %}
+    
+<script>
+    {% for message in messages %}
+    alert("{{ message }}");
+ {% endfor %}
+    
+</script>
+{% endif %}
+</body>
+</html>
